@@ -1,0 +1,21 @@
+{
+  "name": "bitmap-demo",
+  "version": "0.1.0",
+  "description": "8bit bitmap transformer",
+  "main": "index.js",
+  "bin": {
+    "bitmod": "./index.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "author": "slugbyte",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
