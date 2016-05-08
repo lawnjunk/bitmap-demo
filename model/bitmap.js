@@ -1,6 +1,6 @@
 'use strict';
 
-const RGBColor = require('./color.js');
+const Color = require('./color.js');
 
 const Bitmap = module.exports = function(name, buffer){
   this.name = name;
@@ -34,24 +34,30 @@ Bitmap.prototype.toBuffer = function(){
   return this.buffer;
 };
 
-Bitmap.prototype.forEachColor = function(transformRGBColor){
+Bitmap.prototype.forEachColor = function(colorTransformer){
+  var args = Array.prototype.slice.call(arguments);
+  var callback = args[0];
+  var callbackArgs = args.slice(1);
   var color, buf;
   var colorArray = this.colorPallet;
   for(var i = 0; i < colorArray.length ; i+=4){
     buf = colorArray.slice(i, i + 4);
-    color = new RGBColor(buf);
-    transformRGBColor(color);
+    color = new Color(buf);
+    callback.apply(null, [color].concat(callbackArgs));
     colorArray.writeUInt32LE(color.toUint32LE(), i);
   }
   return this;
 };
 
-Bitmap.prototype.forEachPixelRow = function(transformPixelRow){
+// this takes a callback, but is handled by parsing arguments
+Bitmap.prototype.forEachPixelRow = function(){
+  var args = Array.prototype.slice.call(arguments);
+  var callback = args[0];
+  var callbackArgs = args.slice(1);
   var row;
   for (var i=0; i < this.pixelArray.length; i += this.dib.width){
     row = this.pixelArray.slice(i, i + this.dib.width);
-    transformPixelRow(row);
+    callback.apply(null, [row].concat(callbackArgs));
   }
   return this;
 };
-
