@@ -7,7 +7,7 @@ const Bitmap = require('../model/bitmap');
 describe('testing bitmap module', function(){
   describe('testing constructor with data/test.bmp', function(){
     before((done) => {
-      fs.readFile(__dirname + '/../data/test.bmp', (err, data) => {
+      fs.readFile(__dirname + '/data/test.bmp', (err, data) => {
         if (err) throw err;
         this.bitmap = new Bitmap('test.bmp', data);
         done();
