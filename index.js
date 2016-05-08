@@ -16,13 +16,11 @@ bf.on('readDone', function(bitmap){
   bitmap.forEachColor(ct.invert)
     .forEachColor(ct.darken, 0.4)
     .forEachColor(ct.noise, 1)
-    //.forEachColor(ct.lighten, 0.1)
     .forEachPixelRow(rt.mirrorHorizontal)
-    .forEachPixelRow(rt.pixelate, 10, 300)
-    .forEachPixelRow(rt.pixelate, 25, 400)
-    .forEachPixelRow(rt.pixelate, 50, 550)
-    .forEachPixelRow(rt.pixelate, 100, 30, 45)
-    //.forEachPixelRow(rt.pixelate, 10, 500)
+    .forEachPixelRow(rt.pixelStreach, 10, 300)
+    .forEachPixelRow(rt.pixelStreach, 25, 400)
+    .forEachPixelRow(rt.pixelStreach, 50, 550)
+    .forEachPixelRow(rt.pixelStreach, 10, 500)
   console.log('bitmap:', bitmap);
   bf.emit('write', outFilePath, bitmap);
 });
