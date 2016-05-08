@@ -8,6 +8,7 @@ const RGBColor = module.exports = function(buffer){
       this.red = buffer.readUInt8(2);
       this.green = buffer.readUInt8(1);
       this.blue = buffer.readUInt8();
+      this.alpha = buffer.readUInt8(3);
       return;
     }
   }
@@ -71,6 +72,15 @@ RGBColor.prototype.darken = function(value){
   return this;
 };
 
+RGBColor.prototype.blackAndWhite = function(){
+  var average =  Math.floor((this.red + this.green + this.blue) / 3);
+  this.red = average;
+  this.green = average;
+  this.blue = average;
+  this.alpha = average;
+  return this;
+}
+
 RGBColor.prototype.noise = function(scaler){
   scaler = scaler || 1;
   this.red += Math.floor(randomUInt8() * scaler);
@@ -79,4 +89,3 @@ RGBColor.prototype.noise = function(scaler){
   this.roleover();
   return this;
 };
-
