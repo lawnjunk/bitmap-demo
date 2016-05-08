@@ -54,8 +54,8 @@ Color.prototype.invert = function(){
 };
 
 Color.prototype.lighten = function(scaler){
+  scaler = scaler || 0.1;
   scaler = Math.floor(255 * scaler);
-  scaler = scaler || 10;
   this.red += scaler;
   this.green += scaler;
   this.blue += scaler;
@@ -64,8 +64,8 @@ Color.prototype.lighten = function(scaler){
 };
 
 Color.prototype.darken = function(scaler){
+  scaler = scaler || 0.1;
   scaler = Math.floor(255 * scaler);
-  scaler = scaler || 10;
   this.red -= scaler;
   this.green -= scaler;
   this.blue -= scaler;
@@ -80,7 +80,7 @@ Color.prototype.blackAndWhite = function(){
   this.blue = average;
   this.alpha = average;
   return this;
-}
+};
 
 Color.prototype.noise = function(scaler){
   scaler = scaler || 1;

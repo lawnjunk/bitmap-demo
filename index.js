@@ -10,8 +10,8 @@ const rt = require('./lib/row-transformers.js');
 var config = JSON.parse(fs.readFileSync(`${__dirname}/config.json`));
 const inFilePath = process.argv[2] || `${config.indir}/${config.infile}`;
 
-var outFilePath = process.argv[3] || `${config.outdir}/${config.outname}-${config.count++}.bmp`
-fs.writeFileSync(`${__dirname}/config.json`, JSON.stringify(config,null, 2))
+var outFilePath = process.argv[3] || `${config.outdir}/${config.outname}-${config.count++}.bmp`;
+fs.writeFileSync(`${__dirname}/config.json`, JSON.stringify(config,null, 2));
 
 bf.emit('read', inFilePath);
 
@@ -20,7 +20,7 @@ bf.on('readDone', function(bitmap){
     .forEachColor(ct.darken, 0.4)
     .forEachColor(function(color){
       console.log('color before', color);
-      color.lighten(0.1);
+      color.lighten(0.1).darken(0.1);
       console.log('color after', color, '\n');
     })
     .forEachColor(ct.noise, 1)

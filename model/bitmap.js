@@ -34,7 +34,7 @@ Bitmap.prototype.toBuffer = function(){
   return this.buffer;
 };
 
-Bitmap.prototype.forEachColor = function(colorTransformer){
+Bitmap.prototype.forEachColor = function(){
   var args = Array.prototype.slice.call(arguments);
   var callback = args[0];
   var callbackArgs = args.slice(1);
