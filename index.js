@@ -11,19 +11,24 @@ var config = JSON.parse(fs.readFileSync(`${__dirname}/config.json`));
 const inFilePath = process.argv[2] || `${config.indir}/${config.infile}`;
 
 var outFilePath = process.argv[3] || `${config.outdir}/${config.outname}-${config.count++}.bmp`
-fs.writeFileSync(`${__dirname}/config.json`, JSON.stringify(config))
+fs.writeFileSync(`${__dirname}/config.json`, JSON.stringify(config,null, 2))
 
 bf.emit('read', inFilePath);
 
 bf.on('readDone', function(bitmap){
   bitmap.forEachColor(ct.invert)
     .forEachColor(ct.darken, 0.4)
+    .forEachColor(function(color){
+      console.log('color before', color);
+      color.lighten(0.1);
+      console.log('color after', color, '\n');
+    })
     .forEachColor(ct.noise, 1)
-    .forEachPixelRow(rt.mirrorHorizontal)
-    .forEachPixelRow(rt.pixelStreach, 10, 300)
-    .forEachPixelRow(rt.pixelStreach, 25, 400)
-    .forEachPixelRow(rt.pixelStreach, 50, 550)
-    .forEachPixelRow(rt.pixelStreach, 10, 500);
+    .forEachRow(rt.mirrorHorizontal)
+    .forEachRow(rt.pixelStreach, 10, 300)
+    .forEachRow(rt.pixelStreach, 25, 400)
+    .forEachRow(rt.pixelStreach, 50, 550)
+    .forEachRow(rt.pixelStreach, 10, 500);
 
   console.log('bitmap:', bitmap);
   bf.emit('write', outFilePath, bitmap);

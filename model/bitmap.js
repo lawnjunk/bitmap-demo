@@ -50,7 +50,7 @@ Bitmap.prototype.forEachColor = function(colorTransformer){
 };
 
 // this takes a callback, but is handled by parsing arguments
-Bitmap.prototype.forEachPixelRow = function(){
+Bitmap.prototype.forEachRow = function(){
   var args = Array.prototype.slice.call(arguments);
   var callback = args[0];
   var callbackArgs = args.slice(1);
